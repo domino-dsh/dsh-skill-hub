@@ -184,7 +184,6 @@ export function ScenesView(props: { hub: SkillHubState; scope: 'general' | 'work
       {groupsState !== null && tags.length === 0 ? <div className={css.empty}>{tt('groups.empty')}</div> : null}
       {tags.map((tag, index) => {
         const skills = roleSkills.filter((skill) => tag.skillNames.includes(skill.name))
-        if (skills.length === 0) return null
         const visibleCount = skills.length
         const collapsed = collapsedGroups.has('tag:' + tag.id)
         const view = groupSwitchView(tag.skillNames, viewNames)
@@ -224,7 +223,7 @@ export function ScenesView(props: { hub: SkillHubState; scope: 'general' | 'work
                 <button type='button' className={css.opBtn} onClick={() => { setEditingTag(tag); setEditName(tag.name); setMembersDraft(new Set(tag.skillNames)); setEditSearch('') }}>{tt('groups.edit')}</button>
               </>}
             />
-            {!collapsed ? <SkillRows skills={skills} rowProps={rowProps} /> : null}
+            {!collapsed ? (skills.length === 0 ? <div className={css.empty}>{tt('role.empty')}</div> : <SkillRows skills={skills} rowProps={rowProps} />) : null}
           </GroupSection>
         )
       })}
