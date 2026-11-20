@@ -107,3 +107,16 @@ export type {
 export { isProjectSource } from './protocol/sources.ts'
 export type { ForeignRootView, ForeignSkillView, ForeignListResponse, ForeignImportRequest, ForeignImportResponse, ForeignImportItem, ForeignScope } from './protocol/foreign.ts'
 export type { ZipAuditWarning, ZipImportResponse } from './protocol/zip.ts'
+export type {
+  SkillLearnRecord,
+  SkillExample,
+  SkillCombo,
+  LearningSkillResponse,
+  LearningExamplesResponse,
+  LearningComboResponse,
+  LearningSaveRequest,
+  LearningExampleRequest,
+  LearningComboRequest,
+  LearningWriteResponse,
+  LearningDeleteResponse,
+} from './protocol/learning.ts'

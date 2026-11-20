@@ -24,6 +24,7 @@ import { configRoutes } from './routes/config.ts'
 import { marketRoutes } from './routes/market.ts'
 import { repoImportRoutes } from './routes/repo-import.ts'
 import { groupRoutes } from './routes/groups.ts'
+import { learningRoutes } from './routes/learning.ts'
 import { sourceRoutes } from './routes/sources.ts'
 import { foreignRoutes } from './routes/foreign.ts'
 import { zipImportRoutes } from './routes/zip-import.ts'
@@ -84,6 +85,7 @@ export function makeRoutes(deps: SkillHubRouteDeps): WebRoute[] {
     ...marketRoutes(deps),
     ...repoImportRoutes(deps),
     ...groupRoutes(deps),
+    ...learningRoutes(deps),
     ...sourceRoutes(deps),
     ...foreignRoutes(deps),
     ...zipImportRoutes(deps),

@@ -73,6 +73,8 @@ function libConfig(): UserConfig {
       '@deepseek-ai/dsh-host-webserver',
       '@deepseek-ai/dsh-settings',
       '@deepseek-ai/dsh-system-prompt',
+      // Native addon: must resolve at runtime from node_modules, never inline.
+      'better-sqlite3',
     ],
   }
 }

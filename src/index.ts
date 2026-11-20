@@ -26,6 +26,7 @@ import { SkillHubProvider } from './provider.ts'
 import { hostTrustFence, makeRoutes } from './routes.ts'
 import { createSkillStatsReader, asPersistenceSeam, type SessionPersistenceLike, type SessionQueryLike, type SkillStatsReader } from './stats.ts'
 import { SkillHubStore } from './store.ts'
+import { createLearningStore, type LearningStore } from './store/learning.ts'
 import { migrateRenamedDisabledSkills, reconcileDisabledSkills, pruneStaleDisabledSkills, pruneStaleTrash } from './reconcile.ts'
 import { cleanupLeftoverImportDirs, setGithubToken } from './repo.ts'
 import { dshHome } from './store/paths.ts'
@@ -296,6 +297,7 @@ export function apply(ctx: Context, config?: Config): void {
   const settingsOf = (): SettingsForms | undefined => ctx.get('settings') as SettingsForms | undefined
 
   const store = new SkillHubStore()
+  const learning: LearningStore = createLearningStore(dshHome())
   let disposeRoutes: (() => void) | undefined
   let disposeSection: (() => void) | undefined
   // The hub's own provider contributes user/project skills to the registry's
@@ -463,6 +465,7 @@ export function apply(ctx: Context, config?: Config): void {
         const disposers = makeRoutes({
           skills: ctx.skills,
           store,
+          learning,
           // The host's own `/api` trust fence (loopback ∪ bind address ∪
           // --trusted-host ∪ browser session). Read per request: Connection
           // may be provided after this plugin starts, and a one-shot read here

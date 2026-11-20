@@ -91,6 +91,7 @@
     }
   },
   "dependencies": {
+    "better-sqlite3": "^13.2.0",
     "js-yaml": "^4.1.0"
   },
   "peerDependencies": {
@@ -182,6 +183,7 @@
     "@deepseek-ai/dsh-skill": "^0.2.2-rc.3",
     "@deepseek-ai/dsh-system-prompt": "^0.2.2-rc.3",
     "@deepseek-ai/schemastery": "^3.19.0",
+    "@types/better-sqlite3": "^9.6.0",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.20.0",
     "@types/react": "~18.3.1",

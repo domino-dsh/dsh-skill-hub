@@ -10,6 +10,7 @@ import { resolveHubConfig, type HubConfig, type WritableRoot } from '../protocol
 import { rootOfPath } from '../skillfs.ts'
 import { dshHome } from '../store/paths.ts'
 import { type SkillHubStore } from '../store.ts'
+import { type LearningStore } from '../store/learning.ts'
 import { writeError, type RouteFence } from './http.ts'
 
 /** Sources the hub may toggle (the user-level filesystem roots). */
@@ -29,6 +30,8 @@ export interface SkillHubRouteDeps {
     get(name: string, options?: SkillLookupLike): Promise<SkillDefinition | undefined>
   }
   store: SkillHubStore
+  /** 学习域存储（SQLite）。缺失时学习路由回退为惰性打开默认库。 */
+  learning?: LearningStore
   /**
    * Request fence for the whole family: returns the rejection status (401/403)
    * or `undefined` to proceed. Production passes the host's own `/api` fence

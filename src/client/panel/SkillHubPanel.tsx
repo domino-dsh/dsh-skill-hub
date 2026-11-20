@@ -27,6 +27,7 @@ import { AllSkillsView } from './AllSkillsView.tsx'
 import { WorkspaceView } from './WorkspaceView.tsx'
 import { TrashView } from './TrashView.tsx'
 import { MarketView } from './MarketView.tsx'
+import { LearningView } from './LearningView.tsx'
 import { PanelDialogs } from './PanelDialogs.tsx'
 import { ForeignImportDialog } from './ForeignImportDialog.tsx'
 import { CreateSkillDialog } from './CreateSkillDialog.tsx'
@@ -285,6 +286,7 @@ export function SkillHubPanel(props: SkillHubPanelProps): React.JSX.Element {
         <button type='button' role='tab' aria-selected={tab === 'workspace'} className={css.mainTab + (tab === 'workspace' ? ' ' + css.mainTabActive : '')} onClick={() => { setTab('workspace') }}>{tt('view.workspace')}</button>
         <button type='button' role='tab' aria-selected={tab === 'market'} className={css.mainTab + (tab === 'market' ? ' ' + css.mainTabActive : '')} onClick={() => { setTab('market'); void loadMarket() }}>{tt('view.market')}</button>
         <button type='button' role='tab' aria-selected={tab === 'trash'} className={css.mainTab + (tab === 'trash' ? ' ' + css.mainTabActive : '')} onClick={() => { setTab('trash') }}>{tt('view.trash')}{tab !== 'trash' && (sourcesState?.trash.length ?? 0) > 0 ? <span className={css.tabCount}>{sourcesState?.trash.length}</span> : null}</button>
+        <button type='button' role='tab' aria-selected={tab === 'learning'} className={css.mainTab + (tab === 'learning' ? ' ' + css.mainTabActive : '')} onClick={() => { setTab('learning') }}>{tt('view.learning')}</button>
       </div>
       <input
         ref={zipInputRef}
@@ -361,6 +363,8 @@ export function SkillHubPanel(props: SkillHubPanelProps): React.JSX.Element {
         <MarketView hub={hub} />
       ) : tab === 'trash' ? (
         <TrashView hub={hub} />
+      ) : tab === 'learning' ? (
+        <LearningView api={props.api} skills={catalog?.skills ?? []} />
       ) : catalog !== null ? (
         <>
           <div className={css.filterBar}>

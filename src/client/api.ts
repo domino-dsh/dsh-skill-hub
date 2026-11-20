@@ -69,6 +69,9 @@ import {
   type UpdateApplyResponse,
   type UpdateCheckResponse,
   type ZipImportResponse,
+  type LearningSkillResponse,
+  type LearningComboResponse,
+  type LearningWriteResponse,
 } from '../protocol.ts'
 import { tt } from './helpers.ts'
 
@@ -456,5 +459,52 @@ export class SkillHubApi {
   /** Auto-fix a fixable diagnostic (e.g. unquoted colon). */
   fixDiagnostic(path: string): Promise<DiagnosticFixResponse> {
     return this.post<DiagnosticFixResponse>(SKILL_HUB_API.diagnosticFix, { path } satisfies DiagnosticFixRequest)
+  }
+
+  // ---------------------------------------------------------------- learning
+
+  /** 取一个技能的学习记录 + 全部示例。 */
+  learningSkill(name: string): Promise<LearningSkillResponse> {
+    return this.get<LearningSkillResponse>(SKILL_HUB_API.learningSkill, '?name=' + encodeURIComponent(name))
+  }
+
+  /** 保存某技能的汉化说明。 */
+  saveLearning(skillName: string, summaryZh: string): Promise<LearningWriteResponse> {
+    return this.post<LearningWriteResponse>(SKILL_HUB_API.learningSkill + '?name=' + encodeURIComponent(skillName), { summaryZh })
+  }
+
+  /** 给某技能加一条示例。 */
+  addExample(input: { skillName: string; title: string; prompt: string; expect: string; sort?: number }): Promise<LearningWriteResponse> {
+    return this.post<LearningWriteResponse>(SKILL_HUB_API.learningExamples, input)
+  }
+
+  /** 改一条示例。 */
+  updateExample(input: { id: number; title: string; prompt: string; expect: string; sort?: number }): Promise<LearningWriteResponse> {
+    return this.post<LearningWriteResponse>(SKILL_HUB_API.learningExample, input)
+  }
+
+  /** 删一条示例。 */
+  deleteExample(id: number): Promise<LearningWriteResponse> {
+    return this.post<LearningWriteResponse>(SKILL_HUB_API.learningExample, { id, delete: true })
+  }
+
+  /** 列出综合示例。 */
+  learningCombos(): Promise<LearningComboResponse> {
+    return this.get<LearningComboResponse>(SKILL_HUB_API.learningCombos)
+  }
+
+  /** 新建综合示例。 */
+  addCombo(input: { title: string; skillNames: string[]; summaryZh: string; prompt: string }): Promise<LearningWriteResponse> {
+    return this.post<LearningWriteResponse>(SKILL_HUB_API.learningCombos, input)
+  }
+
+  /** 改综合示例。 */
+  updateCombo(input: { id: number; title: string; skillNames: string[]; summaryZh: string; prompt: string }): Promise<LearningWriteResponse> {
+    return this.post<LearningWriteResponse>(SKILL_HUB_API.learningCombo, input)
+  }
+
+  /** 删综合示例。 */
+  deleteCombo(id: number): Promise<LearningWriteResponse> {
+    return this.post<LearningWriteResponse>(SKILL_HUB_API.learningCombo, { id, delete: true })
   }
 }

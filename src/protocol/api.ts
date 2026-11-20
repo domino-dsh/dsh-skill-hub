@@ -69,4 +69,10 @@ export const SKILL_HUB_API = {
   foreign: '/api/skill-hub/foreign',
   foreignImport: '/api/skill-hub/foreign/import',
   importZip: '/api/skill-hub/import/zip',
+  learningHealth: '/api/skill-hub/learning/health',
+  learningSkill: '/api/skill-hub/learning/skill',
+  learningExamples: '/api/skill-hub/learning/examples',
+  learningExample: '/api/skill-hub/learning/example',
+  learningCombos: '/api/skill-hub/learning/combos',
+  learningCombo: '/api/skill-hub/learning/combo',
 } as const
